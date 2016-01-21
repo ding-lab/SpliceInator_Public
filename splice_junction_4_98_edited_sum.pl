@@ -5,9 +5,7 @@ my $start = time();
 my $usage =<<USAGE;
  Usage: $0 <Original MAF> <Directory of bed files>
         The output of the script will be ...
-  Example: perl scripts/splice_junction_3.pl laml/laml_ss_mutation /gscuser/jwang/Jiayin_RNA-Seq_Project/Splice_Site_Project/LAML/ 
-  Example: perl scripts/splice_junction_3.pl brca/GATA3_ss /gscuser/jwang/Jiayin_RNA-Seq_Project/Splice_Site_Project/BRCA/ 
-  Example: bsub -o LAML.out -e LAML.err "perl scripts/splice_junction_3.pl laml/TEST /gscuser/jwang/Jiayin_RNA-Seq_Project/Splice_Site_Project/LAML/ > LAML_ss_output"
+  Example: perl scripts/splice_junction_3.pl laml/laml_ss_mutation /LAML/ 
 USAGE
     die $usage unless @ARGV==2;
 open(my $MAF,'<',$ARGV[0]) or die "INPUT MAF not found!";
@@ -175,7 +173,6 @@ foreach my $jxn (keys %control){
 }
 
 #LOAD IN BED FILE TO IDENTIFY CANONICAL SITES AND ALTERNATIVE SPLICE SITES
-#BED FILE: /gscmnt/gc2600/dinglab/reyka/Splice_project/dat/Splice_Junction/Splice_Junction/E75_bed_v3_cancergene.sort_only_intron_2.bed
 #Example:
 #chr10	8096655	8096853	GATA3:ENST00000379328:+:e1
 #chr10	8096854	8097248	GATA3:ENST00000379328:+:i1
@@ -189,7 +186,7 @@ foreach my $jxn (keys %control){
 #chr10	8111561	8115700	GATA3:ENST00000379328:+:i5
 #chr10	8115701	8117160	GATA3:ENST00000379328:+:e6
 
-open(my $BED,'<','/gscmnt/gc2600/dinglab/reyka/Splice_project/dat/Splice_Junction/Splice_Junction/E75_bed_v3_intron.tsv_canonical_only');
+open(my $BED,'<','BED');
 my %bedhash;
 while(my $bedline=<$BED>){
 #store in hash by gene transcript start etc.
